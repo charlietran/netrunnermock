@@ -9,7 +9,8 @@ NF.elements = {
   background_chooser:       $('#background-chooser'),
   background_chooser_links: $('#background-chooser > li > a'),
   runner_grid:              $('#runner-grid'),
-  corp_grid:                $('#corp-grid')
+  corp_grid:                $('#corp-grid'),
+  search_runner:            $('#runner-search')
 };
 
 NF.grids = {
@@ -21,10 +22,39 @@ NF.grids = {
   }
 };
 
-NF.populateCards = function() {
-  $.getJSON('cards.json', function(card_data){
-    NF.Cards = TAFFY(card_data);
+NF.populateCards = function(self) {
+  self.Cards = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    limit: 10,
+    prefetch: {
+      url: 'cards.json',
+      filter: function(card_list) {
+        return $.map(card_list,
+          function(card) {
+            return {
+              title: card.title,
+              code: card.code,
+              text: card.text.replace("\n","<br><br>")
+          };
+        });
+      }
+    }
   });
+  self.Cards.initialize();
+  self.elements.search_runner.typeahead({
+    hint: false,
+    highlight: true,
+    minLength: 1
+  }, {
+    name: 'Cards',
+    displayKey: 'title',
+    source: self.Cards.ttAdapter(),
+    templates: {
+      suggestion: function(context) { return Mustache.render(self.templates.suggestion, context); }
+    }
+  });
+
 };
 
 NF.setupGrid = function(self) {
@@ -36,6 +66,8 @@ NF.setupTemplates = function(self) {
   self.templates = self.templates || {};
   self.templates.card = $("#card-template").html();
   Mustache.parse(self.templates.card);
+  self.templates.suggestion = $('#suggestion-template').html();
+  Mustache.parse(self.templates.suggestion);
 };
 
 NF.setupBgChooser = function() {
@@ -50,8 +82,7 @@ NF.changeBg = function(el, self) {
   console.log($this.data('url'));
 };
 
-NF.addCard = function(card, side) {
-  var self = this;
+NF.addCard = function(card, side, self) {
   var card_data = {
     image_url: self.options.image_host + card.imagesrc,
     card_title: card.title,
@@ -62,13 +93,20 @@ NF.addCard = function(card, side) {
   self.elements.desktop.foundation();
 };
 
+NF.bindEvents = function(self) {
+  self.elements.search_runner.on('typeahead:selected', function(event, card, dataset) {
+    self.addCard(card, card.side.toLowerCase(), self);
+  });
+};
+
 
 NF.ready = function() {
   var self = this;
-  NF.populateCards();
-  NF.setupGrid(self);
-  NF.setupTemplates(self);
-  NF.setupBgChooser();
+  self.setupTemplates(self);
+  self.populateCards(self);
+  self.setupGrid(self);
+  self.setupBgChooser();
+  self.bindEvents(self);
 };
 
 $(function(){

@@ -26,6 +26,18 @@
       </ul>
 
       <section class="top-bar-section">
+        <ul class="left">
+          <li class="has-form">
+            <div class="row collapse">
+              <div class="large-8 small-9 columns">
+                <input id="runner-search" class="typeahead">
+              </div>
+              <div class="large-4 small-3 columns">
+                <a href="#" class="alert button expand">Search</a>
+              </div>
+            </div>
+          </li>
+        </ul>
         <ul class="right">
           <li class="has-dropdown">
             <a href="#">Change background</a>
@@ -62,10 +74,18 @@
       </div>
     </script>
 
+    <script id="suggestion-template" type="x-tmpl-mustache">
+      <div class="card-suggestion">
+        <div class="card-suggestion-title"><strong>{{title}}</strong></div>
+        <div class="card-suggestion-text">{{{text}}}</div>
+      </div>
+    </script>
+
+
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
-    <script src="js/taffy-min.js"></script>
+    <script src="js/typeahead.bundle.js"></script>
     <script src="js/mustache.js"></script>
     <script src="js/jquery.gridster.min.js"></script>
     <script src="js/foundation.min.js"></script>
