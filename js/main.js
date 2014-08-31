@@ -1,7 +1,9 @@
 var NF = NF || {};
 
 NF.options = {
-  image_host: 'http://www.netrunnerdb.com'
+  image_host: 'http://www.netrunnerdb.com',
+  width: 150,
+  height: 209
 }
 
 NF.elements = {
@@ -9,7 +11,8 @@ NF.elements = {
   background_chooser: $('#background-chooser'),
   background_links:   $('#background-chooser > li > a'),
   grid:               $('#grid'),
-  search_input:       $('#runner-search')
+  search_input:       $('#runner-search'),
+  size_input:         $('#card-size')
 };
 
 NF.populateCards = function(self) {
@@ -99,6 +102,14 @@ NF.bindEvents = function(self) {
   self.elements.background_links.on('click', function() {
     self.changeBg(this, self)
   });
+
+  self.elements.size_input.on('change keyup', function(event) {
+    var cards = $('.card'),
+        multiplier = parseFloat($(this).val());
+
+    cards.css('width', multiplier * self.options.width).
+          css('height', multiplier * self.options.height);
+  });
 };
 
 
@@ -106,7 +117,6 @@ NF.ready = function() {
   var self = this;
   self.setupTemplates(self);
   self.populateCards(self);
-  // self.setupGrid(self);
   self.bindEvents(self);
 };
 
@@ -114,21 +124,3 @@ $(function(){
   NF.ready();
   $(document).foundation();
 });
-
-
-$.fn.animateRotate = function(angle, duration, easing, complete) {
-    return this.each(function() {
-        var $elem = $(this);
-
-        $({deg: 0}).animate({deg: angle}, {
-            duration: duration,
-            easing: easing,
-            step: function(now) {
-                $elem.css({
-                    transform: 'rotate(' + now + 'deg)'
-                });
-            },
-            complete: complete || $.noop
-        });
-    });
-};
