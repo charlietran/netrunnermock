@@ -1,0 +1,73 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NetrunnerFox</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/modernizr-2.8.3.min.js"></script>
+  </head>
+  <body>
+
+
+    <nav class="top-bar" data-topbar role="navigation" data-options="is_hover: false">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#">NetrunnerFox</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <section class="top-bar-section">
+        <ul class="right">
+          <li class="has-dropdown">
+            <a href="#">Change background</a>
+            <ul id="background-chooser" class="dropdown">
+              <li><a href="#" data-url="http://subtlepatterns.com/patterns/retina_wood.png">Light Wood 1</a></li>
+              <li><a href="#" data-url="http://subtlepatterns.com/patterns/purty_wood.png">Light Wood 2</a></li>
+              <li><a href="#" data-url="http://subtlepatterns.com/patterns/tileable_wood_texture.png">Light Wood 3</a></li>
+              <li><a href="#" data-url="http://subtlepatterns.com/patterns/dark_wood.png">Dark Wood 1</a></li>
+              <li><a href="#" data-url="http://subtlepatterns.com/patterns/wood_1.png">Dark Wood 2</a></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </nav>
+    <div id="desktop">
+
+    </div>
+
+
+
+
+    <script id="card-template" type="x-tmpl-mustache">
+      <div class="card" style="background-image: url({{image_url}})">
+      </div>
+    </script>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
+    <script src="js/taffy-min.js"></script>
+    <script src="js/mustache.js"></script>
+    <script src="js/jquery.gridster.min.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/main.js"></script>
+
+<!--     <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+    </script> -->
+  </body>
+</html>
