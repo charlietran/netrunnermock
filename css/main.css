@@ -25,7 +25,10 @@ body, html {
   background-size: cover;
 }
 
-.card.has-tip { cursor: move; }
+.card.has-tip {
+  cursor: move;
+  border: none;
+}
 
 /*/
 /* typeahead
