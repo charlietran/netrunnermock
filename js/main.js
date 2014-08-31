@@ -5,21 +5,11 @@ NF.options = {
 }
 
 NF.elements = {
-  desktop:                  $('#desktop'),
-  background_chooser:       $('#background-chooser'),
-  background_chooser_links: $('#background-chooser > li > a'),
-  runner_grid:              $('#runner-grid'),
-  corp_grid:                $('#corp-grid'),
-  search_input:            $('#runner-search')
-};
-
-NF.grids = {
-  options: {
-    widget_selector: '.card',
-    widget_base_dimensions: [150, 209],
-    min_cols: 2,
-    avoid_overlapped_widgets: false
-  }
+  desktop:            $('#desktop'),
+  background_chooser: $('#background-chooser'),
+  background_links:   $('#background-chooser > li > a'),
+  grid:               $('#grid'),
+  search_input:       $('#runner-search')
 };
 
 NF.populateCards = function(self) {
@@ -83,9 +73,14 @@ NF.addCard = function(card, side, self) {
     card_title: card.title,
     card_text: card.text.replace("\n", "<br><br>")
   };
-  var card_html = Mustache.render(self.templates.card, card_data);
-  self.grids[side].add_widget(card_html, 1, 1);
-  self.elements.desktop.foundation();
+  var card_el = $(Mustache.render(self.templates.card, card_data));
+  card_el.draggable({ grid: [20, 20] });
+  card_el.on('click', function(event) {
+    if (event.shiftKey) {
+      $(this).transit({ rotate: '+=90'});
+    }
+  });
+  self.elements.grid.append(card_el).foundation('tooltip');
 };
 
 NF.bindEvents = function(self) {
@@ -94,7 +89,7 @@ NF.bindEvents = function(self) {
     $(this).val('');
   });
 
-  self.elements.background_chooser_links.on('click', function() {
+  self.elements.background_links.on('click', function() {
     self.changeBg(this, self)
   });
 };
@@ -104,7 +99,7 @@ NF.ready = function() {
   var self = this;
   self.setupTemplates(self);
   self.populateCards(self);
-  self.setupGrid(self);
+  // self.setupGrid(self);
   self.bindEvents(self);
 };
 
@@ -112,3 +107,21 @@ $(function(){
   NF.ready();
   $(document).foundation();
 });
+
+
+$.fn.animateRotate = function(angle, duration, easing, complete) {
+    return this.each(function() {
+        var $elem = $(this);
+
+        $({deg: 0}).animate({deg: angle}, {
+            duration: duration,
+            easing: easing,
+            step: function(now) {
+                $elem.css({
+                    transform: 'rotate(' + now + 'deg)'
+                });
+            },
+            complete: complete || $.noop
+        });
+    });
+};
