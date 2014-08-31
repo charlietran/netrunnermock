@@ -80,10 +80,10 @@ NF.addCard = function(card, self) {
   var card_el = $(Mustache.render(self.templates.card, card_data));
   card_el.draggable({
     grid: [20, 20],
+    stack: "div",
     start: function() {
       $('.tooltip').fadeOut(150);
-    },
-
+    }
   });
   card_el.on('click', function(event) {
     if (event.shiftKey) {
