@@ -41,14 +41,24 @@
       </section>
     </nav>
     <div id="desktop">
-
+      <div id="runner-grid" class="grid"></div>
+      <div id="corp-grid" class="grid"></div>
     </div>
 
 
 
 
     <script id="card-template" type="x-tmpl-mustache">
-      <div class="card" style="background-image: url({{image_url}})">
+      <div
+        class="card has-tip"
+        style="background-image: url({{image_url}})"
+        aria-haspopup="true"
+        title="{{card_text}}"
+        data-tooltip
+        data-row="1" data-col="1"
+        data-sizex="1" data-sizey="1"
+      >
+        &nbsp;
       </div>
     </script>
 

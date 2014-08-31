@@ -1,5 +1,6 @@
-body {
-
+body, html {
+  height: 100%;
+  width: 100%;
 }
 
 #desktop {
@@ -7,10 +8,38 @@ body {
   height: 100%;
   background-repeat: repeat;
   background-image: url('http://subtlepatterns.com/patterns/retina_wood.png');
+  overflow: scroll;
 }
 
 .card {
   width: 150px;
   height: 209px;
   background-size: cover;
+}
+
+.card.has-tip { cursor: move; }
+
+.grid {
+  position: relative;
+}
+
+.grid .preview-holder {
+  z-index: 1;
+  position: absolute;
+  border: none!important;
+  background: rgba(255,0,0,0.3)!important;
+}
+
+/*/
+/* gridster
+/*/
+
+.grid .gs-w {
+  z-index: 2;
+  position: absolute;
+  cursor: pointer;
+}
+
+.grid .player {
+    opacity: 0.7;
 }
