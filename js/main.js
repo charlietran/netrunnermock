@@ -89,7 +89,11 @@ NF.addCard = function(card, self) {
     if (event.shiftKey) {
       $(this).transit({ rotate: '+=90'});
     }
+    if (event.metaKey) {
+      $(this).remove();
+    }
   });
+
   self.elements.grid.append(card_el).foundation('tooltip');
 };
 
