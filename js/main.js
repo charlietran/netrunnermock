@@ -26,7 +26,7 @@ NF.populateCards = function(self) {
         return $.map(card_list,
           function(card) {
             return {
-              title: card.title,
+              title: card.set_code == 'alt' ? card.title + ' (alt)' : card.title,
               code: card.code,
               text: card.text.replace("\n","<br><br>"),
               imagesrc: card.imagesrc
@@ -100,8 +100,12 @@ NF.addCard = function(card, self) {
 NF.bindEvents = function(self) {
   self.elements.search_input.on('typeahead:selected', function(event, card, dataset) {
     self.addCard(card, self);
+  });
+
+  self.elements.search_input.on('blur', function(event, card, dataset) {
     $(this).val('');
   });
+
 
   self.elements.background_links.on('click', function() {
     self.changeBg(this, self)
