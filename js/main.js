@@ -111,8 +111,13 @@ NF.bindEvents = function(self) {
     var cards = $('.card'),
         multiplier = parseFloat($(this).val());
 
-    cards.css('width', multiplier * self.options.width).
-          css('height', multiplier * self.options.height);
+    cards.each(function(){
+      var card = $(this);
+      card.css('width',  multiplier * self.options.width).
+           css('height', multiplier * self.options.height).
+           css('margin-top', (multiplier-1) * parseFloat(card.css('top'))).
+           css('margin-left', (multiplier-1) * parseFloat(card.css('left')));
+    });
   });
 };
 
