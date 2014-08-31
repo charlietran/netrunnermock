@@ -10,7 +10,7 @@ NF.elements = {
   background_chooser_links: $('#background-chooser > li > a'),
   runner_grid:              $('#runner-grid'),
   corp_grid:                $('#corp-grid'),
-  search_runner:            $('#runner-search')
+  search_input:            $('#runner-search')
 };
 
 NF.grids = {
@@ -42,7 +42,7 @@ NF.populateCards = function(self) {
     }
   });
   self.Cards.initialize();
-  self.elements.search_runner.typeahead({
+  self.elements.search_input.typeahead({
     hint: false,
     highlight: true,
     minLength: 1
@@ -70,11 +70,6 @@ NF.setupTemplates = function(self) {
   Mustache.parse(self.templates.suggestion);
 };
 
-NF.setupBgChooser = function() {
-  var self = this;
-  self.elements.background_chooser_links.on('click', function() { NF.changeBg(this, self) });
-}
-
 NF.changeBg = function(el, self) {
   event.preventDefault();
   var $this = $(el);
@@ -94,8 +89,13 @@ NF.addCard = function(card, side, self) {
 };
 
 NF.bindEvents = function(self) {
-  self.elements.search_runner.on('typeahead:selected', function(event, card, dataset) {
+  self.elements.search_input.on('typeahead:selected', function(event, card, dataset) {
     self.addCard(card, card.side.toLowerCase(), self);
+    $(this).val('');
+  });
+
+  self.elements.background_chooser_links.on('click', function() {
+    self.changeBg(this, self)
   });
 };
 
@@ -105,7 +105,6 @@ NF.ready = function() {
   self.setupTemplates(self);
   self.populateCards(self);
   self.setupGrid(self);
-  self.setupBgChooser();
   self.bindEvents(self);
 };
 
