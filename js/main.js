@@ -14,7 +14,7 @@ NF.elements = {
 
 NF.populateCards = function(self) {
   self.Cards = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title', 'code'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     limit: 10,
     prefetch: {
@@ -25,7 +25,8 @@ NF.populateCards = function(self) {
             return {
               title: card.title,
               code: card.code,
-              text: card.text.replace("\n","<br><br>")
+              text: card.text.replace("\n","<br><br>"),
+              imagesrc: card.imagesrc
           };
         });
       }
@@ -67,14 +68,20 @@ NF.changeBg = function(el, self) {
   console.log($this.data('url'));
 };
 
-NF.addCard = function(card, side, self) {
+NF.addCard = function(card, self) {
   var card_data = {
     image_url: self.options.image_host + card.imagesrc,
     card_title: card.title,
     card_text: card.text.replace("\n", "<br><br>")
   };
   var card_el = $(Mustache.render(self.templates.card, card_data));
-  card_el.draggable({ grid: [20, 20] });
+  card_el.draggable({
+    grid: [20, 20],
+    start: function() {
+      $('.tooltip').fadeOut(150);
+    },
+
+  });
   card_el.on('click', function(event) {
     if (event.shiftKey) {
       $(this).transit({ rotate: '+=90'});
@@ -85,7 +92,7 @@ NF.addCard = function(card, side, self) {
 
 NF.bindEvents = function(self) {
   self.elements.search_input.on('typeahead:selected', function(event, card, dataset) {
-    self.addCard(card, card.side.toLowerCase(), self);
+    self.addCard(card, self);
     $(this).val('');
   });
 
