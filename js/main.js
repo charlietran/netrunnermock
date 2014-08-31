@@ -17,8 +17,8 @@ NF.grids = {
   options: {
     widget_selector: '.card',
     widget_base_dimensions: [150, 209],
-    autogrow_cols: true,
-    resize: { enabled: true }
+    min_cols: 2,
+    avoid_overlapped_widgets: false
   }
 };
 

@@ -11,6 +11,14 @@ body, html {
   overflow: scroll;
 }
 
+#desktop.dragging, #desktop.resizing {
+  z-index: 10!important;
+  -webkit-transition: all 0s !important;
+  -moz-transition: all 0s !important;
+  -o-transition: all 0s !important;
+  transition: all 0s !important;
+}
+
 .card {
   width: 150px;
   height: 209px;
@@ -19,20 +27,19 @@ body, html {
 
 .card.has-tip { cursor: move; }
 
-.grid {
-  position: relative;
-}
-
-.grid .preview-holder {
-  z-index: 1;
-  position: absolute;
-  border: none!important;
-  background: rgba(255,0,0,0.3)!important;
-}
 
 /*/
 /* gridster
 /*/
+
+.grid {
+  position: relative;
+  -webkit-transition: height .4s, width .4s;
+  -moz-transition: height .4s, width .4s;
+  -o-transition: height .4s, width .4s;
+  -ms-transition: height .4s, width .4s;
+  transition: height .4s, width .4s;
+}
 
 .grid .gs-w {
   z-index: 2;
@@ -42,6 +49,13 @@ body, html {
 
 .grid .player {
     opacity: 0.7;
+}
+
+.grid .preview-holder {
+  z-index: 1;
+  position: absolute;
+  border: none!important;
+  background: rgba(255,0,0,0.3)!important;
 }
 
 /*/
