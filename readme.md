@@ -3,6 +3,7 @@ A web app for visualizing [Netrunner](http://www.fantasyflightgames.com/edge_min
 
 You can view the demo here: http://charlietran.github.io/netrunnermock
 
-## Goals of this project
+## To do
 
-Allow anyone to create high-quality mockups of Netrunner situations, for the purposes of education and discussion.
+* Persist card state by serializing to URL
+* Stop stealing bandwidth from NetrunnerDB and SubtlePatterns
